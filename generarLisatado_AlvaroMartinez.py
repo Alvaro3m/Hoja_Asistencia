@@ -56,7 +56,7 @@ def convertir_excel_a_pdf(input_excel, output_pdf):
     
     y = height - 40
     for row in ws.iter_rows(values_only=True):
-        text = "         ".join(str(cell) if cell is not None else "" for cell in row)
+        text = "                         ".join(str(cell) if cell is not None else "" for cell in row)
         c.drawString(40, y, text)
         y -= 20
         if y < 40:
