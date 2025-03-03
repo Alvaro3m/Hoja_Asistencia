@@ -30,11 +30,19 @@ def generar_hoja_asistencia(csv_file, output_excel, asignatura, semana_docencia,
     
     fila_inicio = len(encabezado) + 2
     
+    filas_por_grupo = 8
+
     for i, alumno in enumerate(alumnos):
-        columna = ((i+1) // 8%2)+1
-        fila = fila_inicio + (i%8)+(i//16*8)
-        if((i+1)%16==0):
-            fila_inicio= fila_inicio+1
+        # Calcular el grupo actual
+        grupo = i // (2 * filas_por_grupo)
+        #Añadir espacio en blanco
+        if(i%16==0):
+            fila_inicio+=1
+        # Calcular la fila y columna dentro del grupo
+        fila = fila_inicio + (i % filas_por_grupo) + (grupo * filas_por_grupo)
+        columna = 1 if (i % (2 * filas_por_grupo)) < filas_por_grupo else 3
+        
+        # Escribir el nombre en la celda correspondiente
         ws.cell(row=fila, column=columna, value=alumno)
     
     wb.save(output_excel)
